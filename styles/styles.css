@@ -8,13 +8,13 @@
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f9;
-  color: #333;
+  color: #0c0d17;
   margin: 0;
 }
 
 /* Navbar */
 nav {
-  background-color: #333;
+  background-color: #0c0d17;
   color: white;
   padding: 10px 0;
   position: sticky;
@@ -79,7 +79,7 @@ form textarea {
 }
 
 form button {
-  background-color: #333;
+  background-color: #0c0d17;
   color: white;
   border: none;
   padding: 12px;
@@ -195,7 +195,7 @@ h1 {
 
 /* Button Styling */
 button {
-  background-color: #333;
+  background-color: #0c0d17;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -213,7 +213,7 @@ button:hover {
 
 /* Footer styles */
 footer {
-  background-color: #333;
+  background-color: #0c0d17;
   color: white;
   text-align: center;
   padding: 15px;
@@ -283,7 +283,7 @@ footer {
   height: 50px;
   margin: 20px auto;
   border: 5px solid #f3f3f3;
-  border-top: 5px solid #333;
+  border-top: 5px solid #0c0d17;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }

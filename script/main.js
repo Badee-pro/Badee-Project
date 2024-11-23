@@ -2,14 +2,23 @@
 function handleSignUp(event) {
   event.preventDefault();
 
-  const username = document.getElementById("username").value;
-  const gradeLevel = document.getElementById("gradeLevel").value;
+  const username = document.getElementById("username").value.trim();
+  const gradeLevel = document.getElementById("gradeLevel").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
 
-  // Save to localStorage
-  localStorage.setItem("username", username);
-  localStorage.setItem("gradeLevel", gradeLevel);
+  // Simple validation to ensure all fields are filled
+  if (!username || !gradeLevel || !email || !password) {
+    alert("Please fill in all fields!");
+    return;
+  }
+
+  // Save user info in localStorage (for demonstration purposes)
+  const user = { username, gradeLevel, email, password };
+  localStorage.setItem("user", JSON.stringify(user));
 
   // Redirect to the sign-in page
+  alert("Sign-up successful! Redirecting to Sign-In page...");
   window.location.href = "signin.html";
 }
 
@@ -17,19 +26,37 @@ function handleSignUp(event) {
 function handleSignIn(event) {
   event.preventDefault();
 
-  const username = document.getElementById("username").value;
-  const gradeLevel = document.getElementById("gradeLevel").value;
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("signinPassword").value.trim();
 
-  const savedUsername = localStorage.getItem("username");
-  const savedGradeLevel = localStorage.getItem("gradeLevel");
+  const savedUser = JSON.parse(localStorage.getItem("user"));
 
-  if (username === savedUsername && gradeLevel === savedGradeLevel) {
-    // Redirect to the main page if credentials match
-    window.location.href = "index.html"; // Go to the main page
+  // Check if user exists and credentials match
+  if (
+    savedUser &&
+    username === savedUser.username &&
+    password === savedUser.password
+  ) {
+    alert("Sign-in successful! Redirecting to Home Page...");
+    window.location.href = "index.html"; // Redirect to home page
   } else {
-    alert("Invalid credentials!");
+    alert("Invalid username or password!");
   }
 }
+
+// Attach event listeners for sign-up and sign-in forms
+document.addEventListener("DOMContentLoaded", () => {
+  const signUpForm = document.getElementById("signupForm");
+  const signInForm = document.getElementById("signinForm");
+
+  if (signUpForm) {
+    signUpForm.addEventListener("submit", handleSignUp);
+  }
+
+  if (signInForm) {
+    signInForm.addEventListener("submit", handleSignIn);
+  }
+});
 
 // Handle Posting an Issue
 document
@@ -39,7 +66,7 @@ document
 
     const title = document.getElementById("title").value;
     const description = document.getElementById("description").value;
-    const byWho = document.getElementById("issue-by-who").value;
+    // const byWho = document.getElementById("issue-by-who").value;
     const imageFile = document.getElementById("image").files[0];
 
     let imageBase64 = "";
@@ -47,20 +74,19 @@ document
       const reader = new FileReader();
       reader.onloadend = function () {
         imageBase64 = reader.result;
-        savePost(title, description, byWho, imageBase64); // Save post with image
+        savePost(title, description, imageBase64); // Save post with image
       };
       reader.readAsDataURL(imageFile);
     } else {
-      savePost(title, description, byWho, imageBase64); // Save post without image
+      savePost(title, description, imageBase64); // Save post without image
     }
   });
 
 // Function to save the post to localStorage
-function savePost(title, description, byWho, imageBase64) {
+function savePost(title, description, imageBase64) {
   const post = {
     title: title,
     description: description,
-    byWho: byWho,
     image: imageBase64,
     date: new Date().toISOString(),
   };
@@ -86,11 +112,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const title = document.createElement("h3");
     title.textContent = post.title;
 
-    // By Who field
-    const byWho = document.createElement("p");
-    byWho.classList.add("by-who");
-    byWho.textContent = `Posted by: ${post.byWho}`;
-
     // Description of the post
     const description = document.createElement("p");
     description.classList.add("description");
@@ -105,14 +126,28 @@ document.addEventListener("DOMContentLoaded", function () {
       postElement.appendChild(image);
     }
 
-    let textarea = document.createElement("textarea");
-    let sendBtn = document.createElement("button");
-    sendBtn.innerHTML = "Send Comment";
+    const textarea = document.createElement("textarea");
+    textarea.placeholder = "Write your comment here...";
+    textarea.classList.add("comment-box");
 
-    // Append title, description, and byWho to the post card
+    const sendBtn = document.createElement("button");
+    sendBtn.textContent = "Send Comment";
+    sendBtn.classList.add("send-comment-btn");
+
+    sendBtn.addEventListener("click", () => {
+      const comment = textarea.value.trim();
+
+      if (comment) {
+        alert(`Comment sent: "${comment}"`);
+        textarea.value = ""; // Clear the comment box after sending
+      } else {
+        alert("Please write a comment before sending!");
+      }
+    });
+
+    // Append title, description to the post card
     postElement.appendChild(title);
     postElement.appendChild(description);
-    postElement.appendChild(byWho);
     postElement.appendChild(textarea);
     postElement.appendChild(sendBtn);
 
