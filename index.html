@@ -3,24 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Student help - main</title>
-    <link rel="stylesheet" href="style/style.css" />
+    <title>Main Page</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header>
-      <h1>Student Help Posts</h1>
-      <nav>
-        <a href="signin.html"></a>
-        <a href="signup.html">Sign Up</a>
-        <a href="post.html">My Profile</a>
-      </nav>
-    </header>
+    <!-- Navbar -->
+    <nav>
+      <ul>
+        <li><a href="index.html" class="active">Home Page</a></li>
+        <li><a href="post.html">Post an Issue</a></li>
+        <li><a href="signup.html">Sign Up</a></li>
+        <li><a href="signin.html">Sign In</a></li>
+      </ul>
+    </nav>
 
-    <main>
-        <h2>
-            All Posts
-        </h2>
-        <div></div>
-    </main>
+    <div class="container">
+      <h1>All Issues</h1>
+      <div id="issuesList" class="issues-container"></div>
+      <!-- Container to display issues -->
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>
+        Post any problem you are facing and you will always find a solution.
+      </p>
+    </footer>
+
+    <script src="main.js"></script>
   </body>
 </html>

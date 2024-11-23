@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="signin.html">Sign In</a></li>
+            <li><a href="signup.html">Sign Up</a></li>
+        </ul>
+    </nav>
+
+    <!-- Profile Information -->
+    <div class="profile-container">
+        <h2>User Profile</h2>
+        <p><strong>Username:</strong> <span id="username"></span></p>
+        <p><strong>Email:</strong> <span id="email"></span></p>
+    </div>
+
+    <script>
+        // Retrieve user info from localStorage
+        const username = localStorage.getItem("username");
+        const email = localStorage.getItem("email");
+
+        // Display the username and email on the profile page
+        if (username && email) {
+            document.getElementById("username").textContent = username;
+            document.getElementById("email").textContent = email;
+        } else {
+            // Redirect to sign in if user info doesn't exist
+            window.location.href = "signin.html";
+        }
+    </script>
+
+</body>
+</html>
