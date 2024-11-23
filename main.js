@@ -106,13 +106,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     let textarea = document.createElement("textarea");
+    let sendBtn = document.createElement("button");
+    sendBtn.innerHTML = "Send Comment";
 
     // Append title, description, and byWho to the post card
     postElement.appendChild(title);
     postElement.appendChild(description);
     postElement.appendChild(byWho);
     postElement.appendChild(textarea);
-
+    postElement.appendChild(sendBtn);
 
     // Add post card to the container
     issuesList.appendChild(postElement);
